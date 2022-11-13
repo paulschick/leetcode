@@ -1,44 +1,34 @@
-import { ReverseTestCase, reverseWords } from './index';
-
-type TestStrings = {
-    [key: string]: ReverseTestCase;
-};
+import { reverseWords } from './index';
 
 describe('reverse-words', () => {
-    let testStrings: TestStrings;
+    let testStrings: {input: string, output: string}[];
 
     beforeEach(() => {
-        testStrings = {
-            test1: {
+        testStrings = [
+            {
                 input: 'the sky is blue',
                 output: 'blue is sky the',
             },
-            test2: {
+            {
                 input: '  hello world ',
                 output: 'world hello',
             },
-            test3: {
+            {
                 input: 'a good   example',
                 output: 'example good a',
             }
-        };
+        ];
     });
 
-    it('should reverse test case 1', () => {
-        const testCase: ReverseTestCase = testStrings['test1'];
-        const result = reverseWords(testCase.input);
-        expect(result).toEqual(testCase.output);
+    it('should handle all test cases', () => {
+        testStrings.forEach((obj) => {
+            const result = reverseWords(obj.input);
+            expect(result).toEqual(obj.output);
+        });
     });
-
-    it('should reverse test case 2', () => {
-        const testCase: ReverseTestCase = testStrings['test2'];
-        const result = reverseWords(testCase.input);
-        expect(result).toEqual(testCase.output);
-    });
-
-    it('should reverse test case 3', () => {
-        const testCase: ReverseTestCase = testStrings['test3'];
-        const result = reverseWords(testCase.input);
-        expect(result).toEqual(testCase.output);
+    it('should solve a random test case', () => {
+        const input = 'Hello    world how    are you';
+        const expected = 'you are how world Hello';
+        expect(reverseWords(input)).toEqual(expected);
     });
 });
